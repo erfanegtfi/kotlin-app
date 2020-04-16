@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion(AndroidSdk.compileSdk)
+
+    defaultConfig {
+        applicationId ApplicationId.id
+        minSdkVersion AndroidSdk.minSdk
+        targetSdkVersion AndroidSdk.targetSdk
+        versionCode Releases.versionCode
+        versionName Releases.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+// To inline the bytecode built with JVM target 1.8 into
+// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
+
+    dataBinding.enabled = true
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation (Libraries.kotlin)
+    implementation (Androidx.appcompat)
+    implementation (Libraries.ktx)
+    implementation (Androidx.design)
+    implementation (Androidx.constraintlayout)
+    implementation (Androidx.vectordrawable)
+    implementation (Androidx.lifecycleExtensions)
+    implementation (Androidx.navigationFragmentKtx)
+    implementation (Androidx.navigationUIKtx)
+    implementation (Androidx.livedata)
+    implementation (Libraries.rxkotlin)
+    implementation (Libraries.rxandroid)
+    implementation (Libraries.scalarsConverter)
+    implementation (Libraries.picasso)
+    implementation (Libraries.eventbus)
+
+    //room
+    implementation (Androidx.room)
+    kapt (Androidx.roomCompiler)
+    implementation (Androidx.roomRuntime)
+
+    //retrofit
+    implementation (Libraries.retrofit)
+    implementation (Libraries.gsonConverter)
+    implementation (Libraries.rxjavaAdapter)
+    implementation (Libraries.gson)
+}
+kapt {
+    generateStubs = true
+}

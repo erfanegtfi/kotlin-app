@@ -1,0 +1,19 @@
+<resources>
+    <declare-styleable name="toolbarView">
+
+        <attr name="tv_show_back" format="boolean" />
+        <attr name="tv_show_menu" format="boolean" />
+        <attr name="tv_show_search" format="boolean" />
+        <attr name="tv_show_page_setting" format="boolean" />
+        <attr name="tv_show_drawer" format="boolean" />
+        <attr name="tv_show_share" format="boolean" />
+        <attr name="tv_show_bookmark" format="boolean" />
+        <attr name="tv_show_cart" format="boolean" />
+        <attr name="tv_group_cancellation" format="boolean" />
+        <attr name="tv_show_map" format="boolean" />
+        <attr name="tv_title" format="string" />
+        <attr name="tv_user_avatar" format="reference" />
+        <attr name="tv_page_name" format="string" />
+        <attr name="tv_sub_title" format="string" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#D84315</color>
+    <color name="colorPrimaryDark">#BF360C</color>
+    <color name="colorAccent">#00BCD4</color>
+    <color name="colorAccentDark">#00ACC1</color>
+    <color name="colorSecondary">#00BCD4</color>
+
+
+    <color name="colorErrorRed">@color/md_red_500</color>
+    <color name="red">@color/md_red_600</color>
+    <color name="yellow">@color/md_yellow_900</color>
+    <color name="green">@color/md_green_600</color>
+    <color name="colorMessageBlue">@color/md_blue_500</color>
+    <color name="page_background">@color/md_blue_grey_50</color>
+
+    <color name="white">#ffffff</color>
+    <color name="colorButtonAccentRipple">#B2EBF2</color>
+    <color name="colorButtonPrimaryRipple">#FFCCBC</color>
+    <color name="colorButtonGrayRipple">#F5F5F5</color>
+    <color name="white_trans">#aaffffff</color>
+
+    <color name="gray_dark">@color/md_grey_700</color>
+    <color name="gray">@color/md_grey_500</color>
+
+    <!--text colors-->
+    <color name="black">@color/md_black_1000</color>
+    <color name="icon">@color/md_grey_800</color>
+    <color name="text_gray">@color/md_grey_900</color>
+
+
+</resources>

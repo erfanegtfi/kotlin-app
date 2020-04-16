@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- **************** icon size **************** -->
+    <dimen name="icon_size_xlarge">@dimen/_48dp</dimen>
+    <dimen name="icon_size_large">@dimen/_40dp</dimen>
+    <dimen name="icon_size_medium">@dimen/_32dp</dimen>
+    <dimen name="icon_size_normal">@dimen/_24dp</dimen>
+    <dimen name="icon_size_xsmall">@dimen/_16dp</dimen>
+    <dimen name="icon_size_small">@dimen/_12dp</dimen>
+    <!--*********************************************-->
+
+    <!--************** font size **************-->
+    <dimen name="font_huge">30sp</dimen>
+    <dimen name="font_xxxxlarge">26sp</dimen>
+    <dimen name="font_xxxlarge">24sp</dimen>
+    <dimen name="font_xxlarge">22sp</dimen>
+    <dimen name="font_xlarge">20sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_medium">16sp</dimen>
+    <dimen name="font_normal">14sp</dimen>
+    <dimen name="font_xxsmall">12sp</dimen>
+    <dimen name="font_xsmall">10sp</dimen>
+    <dimen name="font_small">8sp</dimen>
+    <!--***************************************-->
+
+    <!--************** box padding **************-->
+    <dimen name="padding_xxhuge">@dimen/_78dp</dimen>
+    <dimen name="padding_xhuge">@dimen/_64dp</dimen>
+    <dimen name="padding_huge">@dimen/_50dp</dimen>
+    <dimen name="padding_xxxxlarge">@dimen/_44dp</dimen>
+    <dimen name="padding_xxxlarge">@dimen/_36dp</dimen>
+    <dimen name="padding_xxlarge">@dimen/_24dp</dimen>
+    <dimen name="padding_xlarge">@dimen/_20dp</dimen>
+    <dimen name="padding_large">@dimen/_16dp</dimen>
+    <dimen name="padding_medium">@dimen/_12dp</dimen>
+    <dimen name="padding_normal">@dimen/_8dp</dimen>
+    <dimen name="padding_xsmall">@dimen/_6dp</dimen>
+    <dimen name="padding_small">@dimen/_4dp</dimen>
+    <dimen name="padding_very_small">@dimen/_2dp</dimen>
+    <!--***************************************-->
+
+    <!--*************** spacing ***************-->
+    <dimen name="spacing_xxhuge">@dimen/_78dp</dimen>
+    <dimen name="spacing_xhuge">@dimen/_64dp</dimen>
+    <dimen name="spacing_huge">@dimen/_50dp</dimen>
+    <dimen name="spacing_xxxxlarge">@dimen/_44dp</dimen>
+    <dimen name="spacing_xxxlarge">@dimen/_34dp</dimen>
+    <dimen name="spacing_xxlarge">@dimen/_24dp</dimen>
+    <dimen name="spacing_xlarge">@dimen/_20dp</dimen>
+    <dimen name="spacing_large">@dimen/_16dp</dimen>
+    <dimen name="spacing_medium">@dimen/_12dp</dimen>
+    <dimen name="spacing_normal">@dimen/_8dp</dimen>
+    <dimen name="spacing_xsmall">@dimen/_6dp</dimen>
+    <dimen name="spacing_small">@dimen/_4dp</dimen>
+    <dimen name="spacing_very_small">@dimen/_2dp</dimen>
+    <!--***************************************-->
+
+    <!--************* card radius *************-->
+    <dimen name="card_radius_huge">25dp</dimen>
+    <dimen name="card_radius_xxxlarge">20dp</dimen>
+    <dimen name="card_radius_xxlarge">15dp</dimen>
+    <dimen name="card_radius_xlarge">12dp</dimen>
+    <dimen name="card_radius_large">8dp</dimen>
+    <dimen name="card_radius_normal">5dp</dimen>
+    <dimen name="card_radius_small">2dp</dimen>
+    <!--***************************************-->
+
+    <!--************* elevation *************-->
+    <dimen name="elevation_xlarge">8dp</dimen>
+    <dimen name="elevation_large">6dp</dimen>
+    <dimen name="elevation_normal">4dp</dimen>
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_very_small">1dp</dimen>
+    <!--***************************************-->
+
+    <!-- ************ border size ************** -->
+    <dimen name="border_width_huge">4dp</dimen>
+    <dimen name="border_width_xlarge">3dp</dimen>
+    <dimen name="border_width_large">2dp</dimen>
+    <dimen name="border_width_normal">1dp</dimen>
+    <!--***************************************-->
+
+    <!-- ************ border radius ************** -->
+    <dimen name="border_radius_hug">25dp</dimen>
+    <dimen name="border_radius_xlarge">20dp</dimen>
+    <dimen name="border_radius_large">15dp</dimen>
+    <dimen name="border_radius_medium">10dp</dimen>
+    <dimen name="border_radius_normal">5dp</dimen>
+    <dimen name="border_radius_small">2dp</dimen>
+    <!--***************************************-->
+
+</resources>

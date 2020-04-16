@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">کاتلین</string>
+    <string name="nav_bar_home">دسته بندی</string>
+    <string name="nav_bar_nearby">دسته بندی</string>
+    <string name="nav_bar_category">دسته بندی</string>
+    <string name="nav_bar_ikopon">کوپن ها</string>
+    <string name="nav_bar_profile">حساب کاربری</string>
+
+    //errors
+    <string name="error_connection_error">"دستگاه خود را به اینترنت متصل کنید"</string>
+
+    //toolbar view
+    <string name="toolbar_hint_search">جستجو …</string>
+
+
+</resources>

@@ -1,0 +1,75 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorError">@color/colorErrorRed</item>
+        <item name="android:colorBackground">@color/page_background</item>
+        <!-- color used by the fab -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <!-- color used by the fab icon -->
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:dialogTheme">@style/CustomDialogTheme</item>
+        <!-- when button pressed-->
+        <!--<item name="colorControlHighlight">@color/colorAccentDark</item>-->
+        <!--<item name="colorControlNormal">#fff</item>-->
+        <!--<item name="colorControlActivated">#fff</item>-->
+        <!--<item name="android:navigationBarColor">@color/colorPrimaryDark</item>-->
+
+        <item name="android:windowContentTransitions">true</item>
+
+        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>-->
+        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <!--<item name="android:statusBarColor">@color/colorPrimaryDark</item>-->
+        <!--<item name="windowActionModeOverlay">true</item>-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:windowSoftInputMode">stateHidden</item>
+
+    </style>
+
+    <style name="AppTheme.Transitions" parent="AppTheme">
+        <!--<item name="android:windowEnterTransition">@transition/details_window_enter_transition</item>-->
+        <!--<item name="android:windowReturnTransition">@transition/details_window_return_transition</item>-->
+
+        <!--&lt;!&ndash; specify shared element transitions &ndash;&gt;-->
+        <!--<item name="android:windowSharedElementEnterTransition">-->
+            <!--@transition/details_window_enter_transition</item>-->
+        <!--<item name="android:windowSharedElementExitTransition">-->
+            <!--@transition/details_window_return_transition</item>-->
+    </style>
+
+
+    <style name="AppThemeStatusBar" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--<item name="android:statusBarColor">@color/colorPrimaryDark</item>-->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="AppThemeFullscreen" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+<!--    <style name="CustomDialogTheme" parent="Theme.MaterialComponents.Dialog">-->
+    <style name="CustomDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.MinWidth">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="dialogCornerRadius">@dimen/border_radius_medium</item>
+<!--        <item name="android:background">@drawable/bg_white_round10</item>-->
+<!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+    </style>
+
+
+</resources>
