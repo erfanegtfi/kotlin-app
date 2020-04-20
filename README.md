@@ -1,5 +1,5 @@
 # kotlin-app
-Testing app to try different ways of repository pattern and fetch api using livadata, flow, coroutines and room
+Sample app to try different ways of repository pattern and fetch api using livadata, flow, coroutines and room
 Load category list and save in local database
 
 Fetch api request with three approche
