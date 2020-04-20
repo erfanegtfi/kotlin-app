@@ -1,8 +1,8 @@
 package com.e.kotlinapp.network
 
 import com.e.kotlinapp.model.response.base.ApiBaseResponse
+import com.e.kotlinapp.network.api.ApiClient
 import okhttp3.ResponseBody
-import retrofit2.Response
 import java.io.IOException
 
 object UtilsError {

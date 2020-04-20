@@ -1,7 +1,7 @@
 package com.e.kotlinapp.network.api.service;
 
 import android.annotation.SuppressLint;
-import com.e.kotlinapp.network.ApiClient
+import com.e.kotlinapp.network.api.ApiClient
 import com.e.kotlinapp.model.response.base.ApiBaseResponse
 import com.e.kotlinapp.BaseViewModel
 import io.reactivex.Single

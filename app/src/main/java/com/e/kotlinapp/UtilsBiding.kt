@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.e.kotlinapp.network.ApiClient
+import com.e.kotlinapp.network.api.ApiClient
 import com.squareup.picasso.Picasso
 
 

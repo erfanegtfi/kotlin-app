@@ -1,7 +1,7 @@
-package com.e.kotlinapp.network
+package com.e.kotlinapp.network.api
 
 import com.e.kotlinapp.BuildConfig
-import com.e.kotlinapp.network.api.ApiInterface
+import com.e.kotlinapp.network.NetInterceptor
 import com.google.gson.GsonBuilder
 
 import okhttp3.OkHttpClient
@@ -32,9 +32,10 @@ object ApiClient {
 
     }.build()
 
-//    fun createRetrofitClient(): Retrofit {
-//        return retrofit
-//    }
+//    fun createRetrofitClient() = retrofit
+    fun createRetrofitClient(): Retrofit {
+        return retrofit
+    }
 
     val apiInterface: ApiInterface = retrofit.create(ApiInterface::class.java)
 

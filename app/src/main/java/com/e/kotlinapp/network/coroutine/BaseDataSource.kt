@@ -16,6 +16,7 @@ import java.net.SocketTimeoutException
 //    https://github.com/herisulistiyanto/Simple-Retrofit-Coroutine/blob/master/app/src/main/java/com/andro/indie/school/data/source/remote/MovieRemoteDataSource.kt
 
 abstract class BaseDataSource {
+    // safeApiCall
     protected suspend fun <T : ApiBaseResponse> getResult(call: suspend () -> Response<T>): ResponseResult<T> {
         try {
             val response = call.invoke()

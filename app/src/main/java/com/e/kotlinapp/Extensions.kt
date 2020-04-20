@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
-
+//https://github.com/SimpleBoilerplates/Android/tree/master/app/src/main/java/com/me/booksdemoandroid/shared/extension
 fun View.invisible(): View {
     visibility = View.INVISIBLE
     return this

@@ -17,6 +17,23 @@ import java.net.SocketTimeoutException
 // using ResponseResultWithWrapper
 abstract class BaseDataSource2 {
     protected suspend fun <T : ApiBaseResponse> getResult(call: suspend () -> Response<T>): ResponseResultWithWrapper<ResponseWrapper<T>> {
+
+        val result: ResponseResultWithWrapper<ResponseWrapper<T>> = callApi(call)
+
+        when (result) {
+            is ResponseResultWithWrapper.Success -> {
+
+            }
+
+            is ResponseResultWithWrapper.Error -> {
+
+            }
+        }
+
+        return result;
+    }
+
+    protected suspend fun <T : ApiBaseResponse> callApi(call: suspend () -> Response<T>): ResponseResultWithWrapper<ResponseWrapper<T>> {
         try {
             val response = call.invoke()
             if (response.isSuccessful) {

@@ -7,7 +7,7 @@ import com.e.kotlinapp.local.IkoponCategoryDatabase
 import com.e.kotlinapp.model.Category
 
 import com.e.kotlinapp.model.response.base.*
-import com.e.kotlinapp.network.ApiClient
+import com.e.kotlinapp.network.api.ApiClient
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,7 +27,7 @@ class CategoryViewModelCoroutine(application: Application) : BaseViewModel(appli
     /////////////////////////////////////////////////////
     var categoryList: PublishSubject<MutableList<Category>> = PublishSubject.create();
     fun getCategoryList2(context: Context) {
-        Coroutine.makeCall {
+        Coroutine.io {
             apiEvents.postValue(ApiCallState.Loading)
             var response = categoryService.getCategoryList2(true)
             withContext(Dispatchers.Main) {
@@ -42,5 +42,19 @@ class CategoryViewModelCoroutine(application: Application) : BaseViewModel(appli
         }
     }
 
-
+    fun getCategoryList3(context: Context) {
+        apiEvents.postValue(ApiCallState.Loading)
+        Coroutine.ioThenMain({
+            categoryService.getCategoryList2(true)
+        }) {
+            it?.let {
+                when (it) {
+                    is ResponseResult.Success -> {
+                        categoryList.onNext(it.response.data)
+                        apiEvents.value = ApiCallState.Loaded(it.response)
+                    }
+                }
+            }
+        }
+    }
 }

@@ -3,12 +3,11 @@ package com.e.kotlinapp.network.flow
 import androidx.lifecycle.LiveData
 import com.e.kotlinapp.model.Category
 import com.e.kotlinapp.model.response.base.ApiListResponse
-import com.e.kotlinapp.network.ApiClient
 import com.e.kotlinapp.network.coroutine.ApiInterfaceCoroutine
 import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
 import retrofit2.Response
 import com.e.kotlinapp.local.dao.CategoryDao
-import com.e.kotlinapp.network.ApiClient.getApiClient
+import com.e.kotlinapp.network.api.ApiClient.getApiClient
 import com.e.kotlinapp.network.BaseRepository
 import com.e.kotlinapp.network.coroutine.ResponseWrapper
 import kotlinx.coroutines.Dispatchers
