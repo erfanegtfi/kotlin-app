@@ -10,6 +10,8 @@ import com.e.kotlinapp.network.NoConnectivityException
 import com.e.kotlinapp.network.UtilsError
 import com.e.kotlinapp.model.response.base.ApiCallState.*
 import com.e.kotlinapp.network.coroutine.ResponseResult
+import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
+import com.e.kotlinapp.network.coroutine.ResponseWrapper
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
@@ -21,6 +23,7 @@ open class BaseViewModel : AndroidViewModel {
 
     var listLoadingState: ObservableField<ListLoadState> =  ObservableField(ListInitial)
     var apiEvents: SingleLiveEvent<ResponseResult<ApiBaseResponse>> = SingleLiveEvent()
+    var apiEvents2: SingleLiveEvent<ResponseResultWithWrapper<ResponseWrapper<ApiBaseResponse>>> = SingleLiveEvent()
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 

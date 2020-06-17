@@ -20,6 +20,9 @@ import com.e.kotlinapp.model.response.base.ApiBaseResponse
 import com.e.kotlinapp.model.response.base.ApiCallState
 import com.e.kotlinapp.model.response.base.ApiCallState.*
 import com.e.kotlinapp.network.coroutine.ResponseResult
+import com.e.kotlinapp.network.coroutine.ResponseResultErrors
+import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
+import com.e.kotlinapp.network.coroutine.ResponseWrapper
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -60,6 +63,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
     private fun obtainViewModel() = ViewModelProvider(this, viewModelFactory).get(viewModelClass).apply {
         viewModel = this
         subscribeLoadingListener();
+        subscribeLoadingListener2();
     }
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
@@ -117,6 +121,41 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
             }
             is ResponseResult.TimeOutError -> {
                 onTimeout(callEvent.throwable);
+            }
+        }
+    }
+    ///////////////////////
+
+    private fun subscribeLoadingListener2() {
+        viewModel.apiEvents2.observe(this, Observer {
+            when (it) {
+                is ResponseResultWithWrapper.Loading -> {
+                    showLoading();
+                }
+                is ResponseResultWithWrapper.Success -> {
+                    hideLoading();
+                    onResponseMessage(it.responseWrapper.data);
+                }
+                is ResponseResultWithWrapper.ErrorResponse -> {
+                    onResponseMessage(it.responseWrapper.responseError);
+                }
+                is ResponseResultWithWrapper.Error -> { // on errors
+                    hideLoading();
+                    parsError2(it.responseWrapper);
+                }
+            }
+        })
+    }
+    fun parsError2(callEvent: ResponseWrapper<*>?) {
+        when (callEvent?.throwable) {
+            is ResponseResultErrors.UnAuthorizedError -> {
+                unauthorizedUser(callEvent.responseError)
+            }
+            is ResponseResultErrors.NetworkError -> {
+//                onNetworkError(callEvent.throwable.UnAuthorizedError);
+            }
+            is ResponseResultErrors.TimeOutError -> {
+//                onTimeout(callEvent.throwable);
             }
         }
     }

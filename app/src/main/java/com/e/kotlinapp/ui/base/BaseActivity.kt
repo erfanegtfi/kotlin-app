@@ -56,6 +56,7 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
     private fun obtainViewModel() = ViewModelProvider(this,viewModelFactory).get(viewModelClass).apply {
         viewModel = this
         subscribeLoadingListener()
+        subscribeLoadingListener2()
     }
 
 
@@ -107,6 +108,41 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
         }
     }
 
+    ///////////////////////
+
+    private fun subscribeLoadingListener2() {
+        viewModel.apiEvents2.observe(this, Observer {
+            when (it) {
+                is ResponseResultWithWrapper.Loading -> {
+                    showLoading();
+                }
+                is ResponseResultWithWrapper.Success -> {
+                    hideLoading();
+                    onResponseMessage(it.responseWrapper.data);
+                }
+                is ResponseResultWithWrapper.ErrorResponse -> {
+                    onResponseMessage(it.responseWrapper.responseError);
+                }
+                is ResponseResultWithWrapper.Error -> { // on errors
+                    hideLoading();
+                    parsError2(it.responseWrapper);
+                }
+            }
+        })
+    }
+    fun parsError2(callEvent: ResponseWrapper<*>?) {
+        when (callEvent?.throwable) {
+            is ResponseResultErrors.UnAuthorizedError -> {
+                unauthorizedUser(callEvent.responseError)
+            }
+            is ResponseResultErrors.NetworkError -> {
+//                onNetworkError(callEvent.throwable.UnAuthorizedError);
+            }
+            is ResponseResultErrors.TimeOutError -> {
+//                onTimeout(callEvent.throwable);
+            }
+        }
+    }
 //    protected fun <T> LiveData<ResponseResultWithWrapper<ResponseWrapper<T>>>.onResult(action: (ResponseResultWithWrapper<ResponseWrapper<T>>) -> Unit) {
 //        observe(this@BaseActivity) { data ->
 //            data.let(
