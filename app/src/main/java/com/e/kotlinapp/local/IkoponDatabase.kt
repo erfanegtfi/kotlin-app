@@ -9,23 +9,23 @@ import com.e.kotlinapp.model.Category
 
 /**
  * Abstract Foodium database.
- * It provides DAO [PostsDao] by using method [getPostsDao].
+ * It provides DAO [PostsDao] by using method [getCategoryDao].
  */
 @Database(entities = [Category::class], version = DatabaseMigrations.DB_VERSION)
-abstract class IkoponCategoryDatabase : RoomDatabase() {
+abstract class IkoponDatabase : RoomDatabase() {
 
     /**
      * @return [PostsDao] Foodium Posts Data Access Object.
      */
-    abstract fun getPostsDao(): CategoryDao
+    abstract fun getCategoryDao(): CategoryDao
 
     companion object {
         const val DB_NAME = "foodium_database"
 
         @Volatile
-        private var INSTANCE: IkoponCategoryDatabase? = null
+        private var INSTANCE: IkoponDatabase? = null
 
-        fun getInstance(context: Context): IkoponCategoryDatabase {
+        fun getInstance(context: Context): IkoponDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -33,7 +33,7 @@ abstract class IkoponCategoryDatabase : RoomDatabase() {
 
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext, IkoponCategoryDatabase::class.java, DB_NAME
+                    context.applicationContext, IkoponDatabase::class.java, DB_NAME
                 ).addMigrations(*DatabaseMigrations.MIGRATIONS).build()
 
                 INSTANCE = instance

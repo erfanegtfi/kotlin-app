@@ -19,9 +19,11 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import com.e.kotlinapp.BR
+import com.e.kotlinapp.di.AppViewModelFactory
 import com.e.kotlinapp.network.coroutine.ResponseResultErrors
 import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
 import com.e.kotlinapp.network.coroutine.ResponseWrapper
+import javax.inject.Inject
 
 abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(), BaseView {
 
@@ -41,13 +43,16 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
     protected abstract val layoutRes: Int
     abstract val viewModelClass: Class<VM>
 
+    @Inject
+    lateinit var  viewModelFactory: AppViewModelFactory
+
     private fun bind() = DataBindingUtil.setContentView<VDB>(this, layoutRes).apply {
         this.setVariable(BR.viewModel, viewModel)
         lifecycleOwner = this@BaseActivity
         binding = this
     }
 
-    private fun obtainViewModel() = ViewModelProvider(this).get(viewModelClass).apply {
+    private fun obtainViewModel() = ViewModelProvider(this,viewModelFactory).get(viewModelClass).apply {
         viewModel = this
         subscribeLoadingListener()
     }

@@ -1,5 +1,6 @@
 package com.e.kotlinapp.ui.category;
 
+import android.app.Application
 import android.os.Bundle;
 import android.util.Log
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.e.kotlinapp.BR
 import com.e.kotlinapp.R
 import com.e.kotlinapp.databinding.FragmentCategoriesBinding
+import com.e.kotlinapp.di.component.DaggerAppComponent
 import com.e.kotlinapp.loadingState
 import com.e.kotlinapp.model.Category
 import com.e.kotlinapp.model.response.base.ListLoading
@@ -32,6 +34,7 @@ class CategoryFragmentFlow : BaseFragment<FragmentCategoriesBinding, CategoryVie
     override val bindingVariable = BR.viewModel
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        DaggerAppComponent.factory().create(application = baseActivity.application).inject(this)
         super.onCreate(savedInstanceState);
     }
 

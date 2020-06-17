@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.e.kotlinapp.di.component.DaggerAppComponent
 import com.e.kotlinapp.ui.category.CategoryViewModel
 import com.e.kotlinapp.ui.base.BaseActivity
 
@@ -16,6 +17,7 @@ class MainActivity : BaseActivity<ViewDataBinding, CategoryViewModel>() {
     override  var viewModelClass= CategoryViewModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerAppComponent.factory().create(application = application).inject(this)
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 

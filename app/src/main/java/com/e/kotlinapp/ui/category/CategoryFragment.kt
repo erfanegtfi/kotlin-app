@@ -1,14 +1,17 @@
 package com.e.kotlinapp.ui.category;
 
+import android.app.Application
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import com.e.kotlinapp.App
 import com.e.kotlinapp.BR
 import com.e.kotlinapp.R
 import com.e.kotlinapp.databinding.FragmentCategoriesBinding
+import com.e.kotlinapp.di.component.DaggerAppComponent
 import com.e.kotlinapp.model.Category
 import com.e.kotlinapp.ui.base.BaseFragment
 
@@ -25,6 +28,7 @@ class CategoryFragment : BaseFragment<FragmentCategoriesBinding, CategoryViewMod
     override val bindingVariable = BR.viewModel
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        DaggerAppComponent.factory().create(application = baseActivity.application).inject(this)
         super.onCreate(savedInstanceState);
     }
 

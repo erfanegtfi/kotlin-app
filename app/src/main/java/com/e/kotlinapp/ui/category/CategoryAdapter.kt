@@ -1,27 +1,18 @@
 package com.e.kotlinapp.ui.category;
 
 import android.content.Context;
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
-import com.e.kotlinapp.BR
 import com.e.kotlinapp.databinding.ItemCategoryBinding
-import com.e.kotlinapp.databinding.ItemCategoryBindingImpl
-import com.e.kotlinapp.local.IkoponCategoryDatabase
+import com.e.kotlinapp.local.IkoponDatabase
 import com.e.kotlinapp.model.Category
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.reflect.Constructor
 
 class CategoryAdapter(
     var context: Context,
@@ -58,7 +49,7 @@ class CategoryAdapter(
             var position: Int = adapterPosition;
 
             CoroutineScope(Dispatchers.IO).launch {
-               IkoponCategoryDatabase.getInstance(context).getPostsDao().insertPosts(Category(catSlug="ddddddaeqwesdf", name="fffewrsadf"+position, icon="asqwerdff" ,logo="sdafewda"))
+               IkoponDatabase.getInstance(context).getCategoryDao().insertPosts(Category(catSlug="ddddddaeqwesdf", name="fffewrsadf"+position, icon="asqwerdff" ,logo="sdafewda"))
            }
             for (i in properties.listIterator()) {
                 i.selected = false

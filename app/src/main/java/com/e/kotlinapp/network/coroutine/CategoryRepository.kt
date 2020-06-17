@@ -5,8 +5,9 @@ import com.e.kotlinapp.local.dao.CategoryDao
 import com.e.kotlinapp.model.response.base.ApiListResponse
 import com.e.kotlinapp.model.Category
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class CategoryRepository(private val movieApiService: ApiInterfaceCoroutine, private val postsDao: CategoryDao) : BaseDataSource() {
+class CategoryRepository @Inject constructor(private val movieApiService: ApiInterfaceCoroutine) : BaseDataSource() {
 
 
 //    fun getCategoryList(): LiveData<ResponseResult<ApiListResponse<Category>>> = resultLiveData() {

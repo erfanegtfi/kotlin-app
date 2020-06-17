@@ -7,22 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import com.e.kotlinapp.model.response.base.ApiCallState.*
 import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.e.kotlinapp.BR
-
 import com.e.kotlinapp.BaseView
 import com.e.kotlinapp.BaseViewModel
-import com.e.kotlinapp.model.response.base.*
-
+import com.e.kotlinapp.di.AppViewModelFactory
+import com.e.kotlinapp.model.response.base.ApiBaseResponse
+import com.e.kotlinapp.model.response.base.ApiCallState
+import com.e.kotlinapp.model.response.base.ApiCallState.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
 
 /**
@@ -40,6 +40,9 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
     protected abstract val viewModelClass: Class<VM>
     abstract val bindingVariable: Int
 
+    @Inject
+    lateinit var  viewModelFactory: AppViewModelFactory
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BaseActivity<*, *>) {
@@ -53,7 +56,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         binding.lifecycleOwner = this@BaseFragment
     }
 
-    private fun obtainViewModel() = ViewModelProvider(this).get(viewModelClass).apply {
+    private fun obtainViewModel() = ViewModelProvider(this, viewModelFactory).get(viewModelClass).apply {
         viewModel = this
         subscribeLoadingListener();
     }

@@ -26,4 +26,13 @@ object Coroutine {
         }
     }
 
+    //this should be test
+    fun <T : Any> ioThenMain2(work: suspend (() -> T?), callback: ((T?) -> Unit)? = null): Job = CoroutineScope(Dispatchers.IO).launch {
+        val data:T? = work()
+        CoroutineScope(Dispatchers.Main).launch {
+            callback?.let {
+                it(data)
+            }
+        }
+    }
 }

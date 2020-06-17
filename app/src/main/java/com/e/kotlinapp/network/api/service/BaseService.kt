@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 
 private val TAG: String = BaseService::class.java.simpleName
 
-open class BaseService(private var baseViewModel: BaseViewModel) {
+open class BaseService(private var baseViewModel: BaseViewModel?=null) {
 
 
     //create retrofit objects for different api interfaces
@@ -27,7 +27,7 @@ open class BaseService(private var baseViewModel: BaseViewModel) {
     @SuppressLint("CheckResult")
     fun <T : ApiBaseResponse> callApi(observable: Single<T>): Single<T> {
         return observable.observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
-            baseViewModel.compositeDisposable.add(it)
+            baseViewModel?.compositeDisposable?.add(it)
         }.doOnDispose {}//.retryWhen { f -> f.take(3).delay(5, TimeUnit.SECONDS) }//tried 3 times with a 5 sec break }
             .doOnError {
 

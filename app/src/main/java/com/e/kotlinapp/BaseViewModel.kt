@@ -80,24 +80,11 @@ open class BaseViewModel : AndroidViewModel {
         return apiCallResult
     }
 
-
-//    public void isEmptyList(List data, int message) {
-//        if (data.isEmpty()) {
-//            getMessage().set(message);
-//            getLoading().set(ERROR);
-//        }
-//    }
-
     fun isEmptyList(total: Int, messageStr: Int) {
         if (total == 0) {
             listLoadingState.set(ListError("empty list"))
         }
     }
 
-//    fun <T : LoadableList> void appendLoading(T obj, List<T> data) {
-//        if (!data.isEmpty()) {
-//            obj.setLoading(true);
-//            data.add(obj);
-//        }
-//    }
+
 }

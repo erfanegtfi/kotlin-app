@@ -67,7 +67,9 @@ dependencies {
     implementation (Libraries.scalarsConverter)
     implementation (Libraries.picasso)
     implementation (Libraries.eventbus)
-
+    //dagger
+    implementation (Libraries.dagger)
+    kapt (Libraries.daggerCompiler)
     //room
     implementation (Androidx.room)
     kapt (Androidx.roomCompiler)

@@ -9,11 +9,12 @@ import com.ikopon.dataSource.networkServices.CategoryService
 
 import com.e.kotlinapp.model.response.base.*
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
 
-class CategoryViewModel(application: Application) : BaseViewModel(application) {
+class CategoryViewModel  @Inject constructor (application: Application, private val categoryService: CategoryService) : BaseViewModel(application) {
 
-    private var categoryService: CategoryService = CategoryService(this)
+//    private var categoryService: CategoryService = CategoryService(this)
     var categoryList: PublishSubject<MutableList<Category>> = PublishSubject.create();
 
 

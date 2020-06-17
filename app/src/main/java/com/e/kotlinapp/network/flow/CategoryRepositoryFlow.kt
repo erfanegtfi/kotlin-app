@@ -13,9 +13,10 @@ import com.e.kotlinapp.network.coroutine.ResponseWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class CategoryRepositoryFlow(private val movieApiService: ApiInterfaceCoroutine, private val postsDao: CategoryDao) : BaseRepository(){
+class CategoryRepositoryFlow @Inject constructor( private val postsDao: CategoryDao) : BaseRepository(){
 
     // load using Flow, database first
     fun loadCategory(): Flow<ResponseResultWithWrapper<ResponseWrapper<List<Category>>>> {
@@ -40,7 +41,7 @@ class CategoryRepositoryFlow(private val movieApiService: ApiInterfaceCoroutine,
 
             override suspend fun fetchFromRemote(): Response<ApiListResponse<Category>> = getApiClient(ApiInterfaceCoroutine::class.java).getCategoryList()
 
-        }.asFlow()
+        }.asLiveData()
     }
 
     // load remote using Flow

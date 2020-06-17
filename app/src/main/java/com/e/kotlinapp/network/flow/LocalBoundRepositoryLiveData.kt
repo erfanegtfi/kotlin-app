@@ -38,7 +38,7 @@ import retrofit2.Response
 @ExperimentalCoroutinesApi
 abstract class LocalBoundRepositoryLiveData<RESULT, REQUEST> :BaseRepository(){
 
-    fun asFlow() = liveData<ResponseResultWithWrapper<ResponseWrapper<RESULT>>>(Dispatchers.IO) {
+    fun asLiveData() = liveData<ResponseResultWithWrapper<ResponseWrapper<RESULT>>>(Dispatchers.IO) {
 
         // Emit Loading State
         emit(ResponseResultWithWrapper.Loading)

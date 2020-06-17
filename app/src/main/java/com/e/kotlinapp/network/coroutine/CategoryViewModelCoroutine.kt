@@ -3,7 +3,7 @@ package com.e.kotlinapp.network.coroutine;
 import android.app.Application;
 import android.content.Context
 import com.e.kotlinapp.BaseViewModel
-import com.e.kotlinapp.local.IkoponCategoryDatabase
+import com.e.kotlinapp.local.IkoponDatabase
 import com.e.kotlinapp.model.Category
 
 import com.e.kotlinapp.model.response.base.*
@@ -11,14 +11,14 @@ import com.e.kotlinapp.network.api.ApiClient
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class CategoryViewModelCoroutine(application: Application) : BaseViewModel(application) {
-    fun <T> getApiClient(serviceClass: Class<T>): T {
-        return ApiClient.retrofit.create(serviceClass)
-    }
-
-    private var categoryService: CategoryRepository = CategoryRepository(getApiClient(ApiInterfaceCoroutine::class.java), IkoponCategoryDatabase.getInstance(application).getPostsDao())
+class CategoryViewModelCoroutine @Inject constructor(application: Application, private val categoryService: CategoryRepository) : BaseViewModel(application) {
+//    fun <T> getApiClient(serviceClass: Class<T>): T {
+//        return ApiClient.retrofit.create(serviceClass)
+//    }
+//    private var categoryService: CategoryRepository = CategoryRepository(getApiClient(ApiInterfaceCoroutine::class.java), IkoponDatabase.getInstance(application).getCategoryDao())
 
 
     fun getCategoryList() = categoryService.getCategoryListRemote(true)
