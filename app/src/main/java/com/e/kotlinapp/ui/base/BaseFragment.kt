@@ -19,6 +19,7 @@ import com.e.kotlinapp.di.AppViewModelFactory
 import com.e.kotlinapp.model.response.base.ApiBaseResponse
 import com.e.kotlinapp.model.response.base.ApiCallState
 import com.e.kotlinapp.model.response.base.ApiCallState.*
+import com.e.kotlinapp.network.coroutine.ResponseResult
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -88,10 +89,10 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
     fun subscribeLoadingListener() {
         viewModel.apiEvents.observe(this, Observer {
             when (it) {
-                is Loading -> {
+                is ResponseResult.Loading -> {
                     showLoading();
                 }
-                is Loaded -> {
+                is ResponseResult.Success -> {
                     hideLoading();
                     onResponseMessage(it.response);
                 }
@@ -103,18 +104,18 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         })
     }
 
-    fun parsError(callEvent: ApiCallState) {
+    fun parsError(callEvent: ResponseResult<ApiBaseResponse>) {
         when (callEvent) {
-            is ResponseError -> {
-                onResponseMessage(callEvent.message);
+            is ResponseResult.ResponseError -> {
+                onResponseMessage(callEvent.response);
             }
-            is UnAuthorizedError -> {
-                unauthorizedUser(callEvent.message);
+            is ResponseResult.UnAuthorizedError -> {
+                unauthorizedUser(callEvent.response);
             }
-            is NetworkError -> {
+            is ResponseResult.NetworkError -> {
                 onNetworkError(callEvent.throwable);
             }
-            is TimeOutError -> {
+            is ResponseResult.TimeOutError -> {
                 onTimeout(callEvent.throwable);
             }
         }

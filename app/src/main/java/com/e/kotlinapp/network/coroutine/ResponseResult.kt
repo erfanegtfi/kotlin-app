@@ -24,7 +24,7 @@ sealed class ResponseResult<out T> {
     object Loading : ResponseResult<Nothing>()
     data class Success<T>(val response: T) : ResponseResult<T>()
     data class ResponseError<T>(val response: ApiBaseResponse) : ResponseResult<T>()
-    data class UnAuthorizedError<T>(val throwable: Throwable) : ResponseResult<T>()
+    data class UnAuthorizedError<T>(val response: ApiBaseResponse) : ResponseResult<T>()
     data class TimeOutError<T>(val throwable: Throwable) : ResponseResult<T>()
     data class NetworkError<T>(val throwable: Throwable) : ResponseResult<T>()
     data class UnknownError<T>(val throwable: Throwable) : ResponseResult<T>()
@@ -81,8 +81,8 @@ sealed class ResponseResult<out T> {
 //            return apiCallResult
 //        }
 
-        fun  loading() = Loading
-        fun <T> success(response: T) = Success(response)
+//        fun  loading() = Loading
+//        fun <T> success(response: T) = Success(response)
     }
 
 }

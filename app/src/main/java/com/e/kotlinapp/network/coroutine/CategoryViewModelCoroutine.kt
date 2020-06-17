@@ -28,22 +28,22 @@ class CategoryViewModelCoroutine @Inject constructor(application: Application, p
     var categoryList: PublishSubject<MutableList<Category>> = PublishSubject.create();
     fun getCategoryList2(context: Context) {
         Coroutine.io {
-            apiEvents.postValue(ApiCallState.Loading)
+            apiEvents.postValue(ResponseResult.Loading)
             var response = categoryService.getCategoryList2(true)
             withContext(Dispatchers.Main) {
                 when (response) {
                     is ResponseResult.Success -> {
                         categoryList.onNext(response.response.data)
-                        apiEvents.value = ApiCallState.Loaded(response.response)
                     }
                 }
+                apiEvents.value = response
             }
 
         }
     }
 
     fun getCategoryList3(context: Context) {
-        apiEvents.postValue(ApiCallState.Loading)
+        apiEvents.postValue(ResponseResult.Loading)
         Coroutine.ioThenMain({
             categoryService.getCategoryList2(true)
         }) {
@@ -51,9 +51,9 @@ class CategoryViewModelCoroutine @Inject constructor(application: Application, p
                 when (it) {
                     is ResponseResult.Success -> {
                         categoryList.onNext(it.response.data)
-                        apiEvents.value = ApiCallState.Loaded(it.response)
                     }
                 }
+                apiEvents.value = it
             }
         }
     }

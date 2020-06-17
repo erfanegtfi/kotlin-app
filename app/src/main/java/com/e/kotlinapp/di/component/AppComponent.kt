@@ -11,6 +11,7 @@ import com.e.kotlinapp.di.ViewModelModule
 import com.e.kotlinapp.local.dao.CategoryDao
 import com.e.kotlinapp.network.flow.CategoryViewModelFlow
 import com.e.kotlinapp.ui.category.CategoryFragment
+import com.e.kotlinapp.ui.category.CategoryFragmentCoroutine
 import com.e.kotlinapp.ui.category.CategoryFragmentFlow
 import dagger.BindsInstance
 import dagger.Component
@@ -28,6 +29,7 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
 
 
+    fun inject(categoryFragmentCoroutine: CategoryFragmentCoroutine)
     fun provideMovieDao(): CategoryDao
     fun bindViewModelFactory(): ViewModelProvider.Factory
 

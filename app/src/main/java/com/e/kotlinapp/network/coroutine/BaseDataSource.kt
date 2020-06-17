@@ -38,7 +38,7 @@ abstract class BaseDataSource {
             if (message.httpCode == 0) message.httpCode = throwable.code();
 
 
-            if (throwable.code() == 403 || throwable.code() == 401) apiCallResult = ResponseResult.UnAuthorizedError(throwable)
+            if (throwable.code() == 403 || throwable.code() == 401) apiCallResult = ResponseResult.UnAuthorizedError(message)
             else if (throwable.code() == 404 || throwable.code() == 500) apiCallResult = ResponseResult.UnknownError(throwable)
             else {
                 apiCallResult = ResponseResult.ResponseError(message)

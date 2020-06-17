@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.e.kotlinapp.BR
 import com.e.kotlinapp.R
 import com.e.kotlinapp.databinding.FragmentCategoriesBinding
+import com.e.kotlinapp.di.component.DaggerAppComponent
 import com.e.kotlinapp.loadingState
 import com.e.kotlinapp.model.Category
 import com.e.kotlinapp.model.response.base.ListLoading
@@ -31,6 +32,7 @@ class CategoryFragmentCoroutine : BaseFragment<FragmentCategoriesBinding, Catego
     override val bindingVariable = BR.viewModel
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        DaggerAppComponent.factory().create(application = baseActivity.application).inject(this)
         super.onCreate(savedInstanceState);
     }
 
@@ -58,26 +60,26 @@ class CategoryFragmentCoroutine : BaseFragment<FragmentCategoriesBinding, Catego
 
     @SuppressLint("CheckResult")
     private fun reloadNews() {
-//        viewModel.getCategoryList2(contextFragment)
-//        viewModel.categoryList.subscribe {
-//            this.categories.addAll(it);
-//            categoryAdapter.notifyDataSetChanged();
-//        }
+        viewModel.getCategoryList2(contextFragment)
+        viewModel.categoryList.subscribe {
+            this.categories.addAll(it);
+            categoryAdapter.notifyDataSetChanged();
+        }
 /////////////////////////////////////////////////////////////////
-        viewModel.getCategoryList().observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is ResponseResult.Success -> {
-                    this.categories.addAll(it.response.data);
-                    categoryAdapter.notifyDataSetChanged();
-
-                    Log.v("aaaaaaaa", "" + it.response.data.get(0).catSlug)
-                }
-                is ResponseResult.Loading -> {
-                    binding.recycleView.loadingState(ListLoading)
-                }
-            }
-
-        });
+//        viewModel.getCategoryList().observe(viewLifecycleOwner, Observer {
+//            when (it) {
+//                is ResponseResult.Success -> {
+//                    this.categories.addAll(it.response.data);
+//                    categoryAdapter.notifyDataSetChanged();
+//
+//                    Log.v("aaaaaaaa", "" + it.response.data.get(0).catSlug)
+//                }
+//                is ResponseResult.Loading -> {
+//                    binding.recycleView.loadingState(ListLoading)
+//                }
+//            }
+//
+//        });
     }
 
 }

@@ -25,7 +25,7 @@ class CategoryRepository @Inject constructor(private val movieApiService: ApiInt
     /////////////////////////////////////////////////////
     //return type: LiveData<ResponseResult<ApiListResponse<Category>>>
     fun getCategoryListRemote(getNewData: Boolean) = liveData(Dispatchers.IO) {
-        emit(ResponseResult.loading())
+        emit(ResponseResult.Loading)
         //return type: ResponseResult<ApiListResponse<Category>>
         if (getNewData) {
             val result = getResult {

@@ -9,6 +9,7 @@ import com.e.kotlinapp.model.response.base.*
 import com.e.kotlinapp.network.NoConnectivityException
 import com.e.kotlinapp.network.UtilsError
 import com.e.kotlinapp.model.response.base.ApiCallState.*
+import com.e.kotlinapp.network.coroutine.ResponseResult
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
@@ -19,7 +20,7 @@ import java.net.SocketTimeoutException;
 open class BaseViewModel : AndroidViewModel {
 
     var listLoadingState: ObservableField<ListLoadState> =  ObservableField(ListInitial)
-    var apiEvents: SingleLiveEvent<ApiCallState> = SingleLiveEvent()
+    var apiEvents: SingleLiveEvent<ResponseResult<ApiBaseResponse>> = SingleLiveEvent()
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
@@ -29,8 +30,8 @@ open class BaseViewModel : AndroidViewModel {
         compositeDisposable.clear()
     }
 
-    fun onError(throwable: Throwable, showOutMessage: Boolean): ApiCallState {
-        val apiCallResult :ApiCallState
+    fun onError(throwable: Throwable, showOutMessage: Boolean): ResponseResult<ApiBaseResponse> {
+        val apiCallResult :ResponseResult<ApiBaseResponse>
         if (throwable is HttpException) {
             val message: ApiBaseResponse = UtilsError.parseError(throwable.response()?.errorBody())
 
@@ -39,20 +40,20 @@ open class BaseViewModel : AndroidViewModel {
 
 
             if (throwable.code() == 403 || throwable.code() == 401)
-                apiCallResult = UnAuthorizedError(throwable, message)
+                apiCallResult = ResponseResult.UnAuthorizedError(message)
             else if (throwable.code() == 404 || throwable.code() == 500)
-                apiCallResult = ResponseError(throwable, message)
+                apiCallResult = ResponseResult.ResponseError( message)
             else {
-                apiCallResult = ResponseError(throwable, message)
+                apiCallResult = ResponseResult.ResponseError( message)
             }
 
         } else if (throwable is SocketTimeoutException) {
-            apiCallResult = TimeOutError(throwable)
+            apiCallResult = ResponseResult.TimeOutError(throwable)
         } else if (throwable is NoConnectivityException) {//|| throwable instanceof IOException
-            apiCallResult = NetworkError(throwable)
+            apiCallResult = ResponseResult.NetworkError(throwable)
         } else {
             Log.e("errorrrrrr ", throwable.message);
-            apiCallResult = UnknownError(throwable)
+            apiCallResult = ResponseResult.UnknownError(throwable)
         }
 
         if (showOutMessage)
@@ -61,21 +62,21 @@ open class BaseViewModel : AndroidViewModel {
         return  apiCallResult
     }
 
-    fun onResponse(response: ApiBaseResponse, showOutMessage: Boolean): ApiCallState {
+    fun onResponse(response: ApiBaseResponse, showOutMessage: Boolean): ResponseResult<ApiBaseResponse> {
         Log.e("successfullCall: ", response.httpCode.toString());
-        val apiCallResult :ApiCallState
+        val apiCallResult :ResponseResult<ApiBaseResponse>
         if (response.httpCode == Constants.CODE_SUCCESS) {
             response.success = true;
 
             response.showType = MessageShowType.TOAST
-            apiCallResult = Loaded(response) //ApiCallEvent(callState= ApiCallState.LOADED,message=response)
+            apiCallResult = ResponseResult.Success(response) //ApiCallEvent(callState= ApiCallState.LOADED,message=response)
 
         } else {
-            apiCallResult = ResponseError(Throwable("serverrr errorrr"), response)//ApiCallEvent(callState= ApiCallState.LOADED,message=response)
+            apiCallResult = ResponseResult.ResponseError(response)//ApiCallEvent(callState= ApiCallState.LOADED,message=response)
         }
 
         if (showOutMessage)
-            apiEvents.value = Loaded(response)
+            apiEvents.value = ResponseResult.Success(response)
 
         return apiCallResult
     }

@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import com.e.kotlinapp.BR
 import com.e.kotlinapp.di.AppViewModelFactory
+import com.e.kotlinapp.network.coroutine.ResponseResult
 import com.e.kotlinapp.network.coroutine.ResponseResultErrors
 import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
 import com.e.kotlinapp.network.coroutine.ResponseWrapper
@@ -74,10 +75,10 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
     private fun subscribeLoadingListener() {
         viewModel.apiEvents.observe(this, Observer {
             when (it) {
-                is Loading -> {
+                is ResponseResult.Loading -> {
                     showLoading();
                 }
-                is Loaded -> {
+                is ResponseResult.Success -> {
                     hideLoading();
                     onResponseMessage(it.response);
                 }
@@ -89,18 +90,18 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
         })
     }
 
-    fun parsError(callEvent: ApiCallState) {
+    fun parsError(callEvent: ResponseResult<ApiBaseResponse>) {
         when (callEvent) {
-            is ResponseError -> {
-                onResponseMessage(callEvent.message);
+            is ResponseResult.ResponseError -> {
+                onResponseMessage(callEvent.response);
             }
-            is UnAuthorizedError -> {
-                unauthorizedUser(callEvent.message);
+            is ResponseResult.UnAuthorizedError -> {
+                unauthorizedUser(callEvent.response);
             }
-            is NetworkError -> {
-                internetConnection();
+            is ResponseResult.NetworkError -> {
+                onNetworkError(callEvent.throwable);
             }
-            is TimeOutError -> {
+            is ResponseResult.TimeOutError -> {
                 onTimeout(callEvent.throwable);
             }
         }
