@@ -35,7 +35,7 @@ import retrofit2.Response
  * [REQUEST] represents the type for network.
  */
 @ExperimentalCoroutinesApi
-abstract class NetworkBoundRepository<REQUEST> :BaseRepository(){
+abstract class NetworkBoundRepository<REQUEST: ApiBaseResponse> :BaseRepository(){
 
     fun asFlow() = flow {
 
@@ -53,8 +53,7 @@ abstract class NetworkBoundRepository<REQUEST> :BaseRepository(){
 
             // Check for response validation
             if (apiResponse.isSuccessful && remotePosts != null) {
-                emit(ResponseResultWithWrapper.Success(ResponseWrapper(data = remotePosts)))
-
+                emit(onResponse<REQUEST>(remotePosts))
             } else {
                 // Something went wrong! Emit Error state.
                 emit(error(apiResponse.errorBody()))

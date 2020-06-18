@@ -137,6 +137,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
                     onResponseMessage(it.responseWrapper.data);
                 }
                 is ResponseResultWithWrapper.ErrorResponse -> {
+                    hideLoading();
                     onResponseMessage(it.responseWrapper.responseError);
                 }
                 is ResponseResultWithWrapper.Error -> { // on errors

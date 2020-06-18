@@ -33,12 +33,12 @@ class CategoryViewModelFlow @Inject constructor(application: Application, privat
     //using flow
     fun getCategories() {
         viewModelScope.launch {
-            apiEvents2.value = ResponseResultWithWrapper.Loading
+//            apiEvents2.value = ResponseResultWithWrapper.Loading
             Log.v("sdfasdasdfaaaaaa", Thread.currentThread().name)
-            categoryService.loadCategory().collect {
+            categoryService.loadCategory2().collect {
                 if(it is ResponseResultWithWrapper.Success)
-                    _postsLiveData.value = it.responseWrapper.data
-//                apiEvents2.value = it
+                    _postsLiveData.value = it.responseWrapper.data?.data
+                apiEvents2.value = it
             }
         }
     }
