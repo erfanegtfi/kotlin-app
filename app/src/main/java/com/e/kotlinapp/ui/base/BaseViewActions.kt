@@ -63,15 +63,15 @@ class BaseViewActions private constructor() {
     }
 
 
-    fun onTimeout(throwable: Throwable?) {
+    fun onTimeout(message: String?) {
 
     }
 
-    fun onNetworkError(throwable: Throwable?) {
+    fun onNetworkError(message: String?) {
         Toast.makeText(context, "خطا در اتصال به اینترنت!", Toast.LENGTH_SHORT).show();
     }
 
-    fun onError(throwable: Throwable?, message: ApiBaseResponse?) {
+    fun onError(message: String?) {
 
     }
 

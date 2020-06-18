@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
@@ -112,13 +113,21 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
                 unauthorizedUser(callEvent.message);
             }
             is NetworkError -> {
-                onNetworkError(callEvent.throwable);
+                internetConnection(callEvent.message);
             }
             is TimeOutError -> {
-                onTimeout(callEvent.throwable);
+                onTimeout(callEvent.message);
+            }
+            is UnknownError -> {
+                onError(callEvent.message);
             }
         }
     }
+
+    fun internetConnection(message: String?) {
+        Toast.makeText(activity, "connection error!", Toast.LENGTH_SHORT).show();
+    }
+
 
     override fun showLoading(message: String?) {
         viewActions.showLoading(message)
@@ -136,27 +145,26 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         viewActions.unauthorizedUser(response);
     }
 
-    override fun onTimeout(throwable: Throwable?) {
+    override fun onTimeout(throwable: String?) {
         viewActions.onTimeout(throwable);
     }
 
-    override fun onNetworkError(throwable: Throwable?) {
+    override fun onNetworkError(throwable: String?) {
         viewActions.onNetworkError(throwable);
     }
 
-    override fun onError(throwable: Throwable?, message: ApiBaseResponse?) {
-        viewActions.onError(throwable, message);
+    override fun onError(throwable: String?) {
+        viewActions.onError(throwable);
     }
 
     override fun onResponseMessage(message: ApiBaseResponse?) {
         viewActions.onResponseMessage(message);
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
-        viewModel?.onDestroy()
+        viewModel.onDestroy()
     }
 
 

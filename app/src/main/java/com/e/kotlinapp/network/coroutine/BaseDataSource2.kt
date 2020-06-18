@@ -55,7 +55,7 @@ abstract class BaseDataSource2 {
 
 
             if (throwable.code() == 403 || throwable.code() == 401)
-                apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(responseError= message, throwable= ResponseResultErrors.UnAuthorizedError(throwable)))
+                apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(responseError= message, throwable= ResponseResultErrors.UnAuthorizedError()))
             else if (throwable.code() == 404 || throwable.code() == 500)
                 apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(responseError= message))
             else {
@@ -64,14 +64,14 @@ abstract class BaseDataSource2 {
             }
 
         } else if (throwable is SocketTimeoutException) {
-            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.TimeOutError(throwable)))
+            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.TimeOutError()))
 //            apiCallResult = ResponseResult.TimeOutError(throwable)
         } else if (throwable is NoConnectivityException) {//|| throwable instanceof IOException
-            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.NetworkError(throwable)))
+            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.NetworkError()))
 //            apiCallResult = ResponseResult.NetworkError(throwable)
         } else {
             Log.e("errorrrrrr ", throwable.message);
-            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.UnknownError(throwable)))
+            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.UnknownError()))
 //            apiCallResult = ResponseResult.UnknownError(throwable)
         }
 

@@ -98,85 +98,20 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
                 unauthorizedUser(callEvent.message);
             }
             is NetworkError -> {
-                internetConnection();
+                internetConnection(callEvent.message);
             }
             is TimeOutError -> {
-                onTimeout(callEvent.throwable);
+                onTimeout(callEvent.message);
+            }
+            is UnknownError -> {
+                onError(callEvent.message);
             }
         }
     }
 
-//    protected fun <T> LiveData<ResponseResultWithWrapper<ResponseWrapper<T>>>.onResult(action: (ResponseResultWithWrapper<ResponseWrapper<T>>) -> Unit) {
-//        observe(this@BaseActivity) { data ->
-//            data.let(
-//                when (data) {
-//                    is ResponseResultWithWrapper.Loading -> {
-//                        action
-//                    }
-//                    is ResponseResultWithWrapper.Error -> {
-//                        when (data.responseWrapper.throwable) {
-//                            is ResponseResultErrors.UnAuthorizedError -> {
-//
-//                            }
-//                            is ResponseResultErrors.TimeOutError -> {
-//
-//                            }
-//                            is ResponseResultErrors.NetworkError -> {
-//
-//                            }
-//                            is ResponseResultErrors.UnknownError -> {
-//
-//                            }
-//                        }
-//                        action
-//                    }
-//                    is ResponseResultWithWrapper.ErrorResponse -> {
-//                        action
-//                    }
-//                    else -> action
-//                }
-//
-//            )
-//        }
-//    }
 
-    //    protected fun <T: ApiBaseResponse> LiveData<ResponseResult<T>>.onResult(action: (ResponseResult<T>) -> Unit) {
-//        observe(this@BaseActivity) { data ->
-//            data.let(
-//                when (data) {
-//                    is ResponseResult.Loading -> {
-//                        showLoading()
-//                        action
-//                    }
-//                    is ResponseResult.Success -> {
-//                        hideLoading();
-//                        onResponseMessage(data.response);
-//                        action
-//                    }
-//                    is ResponseResult.ResponseError -> {
-//                        onResponseMessage(data.response);
-//                        action
-//                    }
-//                    is ResponseResult.UnAuthorizedError -> {
-////                        unauthorizedUser(data.throwable);
-//                        action
-//                    }
-//                    is ResponseResult.NetworkError -> {
-//                        internetConnection();
-//                        action
-//                    }
-//                    is ResponseResult.TimeOutError -> {
-//                        onTimeout(data.throwable);
-//                        action
-//                    }
-//                    else ->  action
-//                }
-//
-//            )
-//        }
-//    }
 
-    fun internetConnection() {
+    fun internetConnection(message: String?) {
         Toast.makeText(activity, "connection error!", Toast.LENGTH_SHORT).show();
     }
 
@@ -197,16 +132,16 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
         viewActions.unauthorizedUser(response);
     }
 
-    override fun onTimeout(throwable: Throwable?) {
+    override fun onTimeout(throwable: String?) {
         viewActions.onTimeout(throwable);
     }
 
-    override fun onNetworkError(throwable: Throwable?) {
+    override fun onNetworkError(throwable: String?) {
         viewActions.onNetworkError(throwable);
     }
 
-    override fun onError(throwable: Throwable?, message: ApiBaseResponse?) {
-        viewActions.onError(throwable, message);
+    override fun onError(throwable: String?) {
+        viewActions.onError(throwable);
     }
 
     override fun onResponseMessage(message: ApiBaseResponse?) {

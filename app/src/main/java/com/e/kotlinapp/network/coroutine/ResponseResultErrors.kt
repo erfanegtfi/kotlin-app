@@ -21,10 +21,10 @@ import java.net.SocketTimeoutException
 
 sealed class ResponseResultErrors {
 
-    data class UnAuthorizedError(val throwable: Throwable) : ResponseResultErrors()
-    data class TimeOutError(val throwable: Throwable) : ResponseResultErrors()
-    data class NetworkError(val throwable: Throwable) : ResponseResultErrors()
-    data class UnknownError(val throwable: Throwable) : ResponseResultErrors()
+    data class UnAuthorizedError(val message: ApiBaseResponse?=null) : ResponseResultErrors()
+    data class TimeOutError(val message: String?=null) : ResponseResultErrors()
+    data class NetworkError(val message: String?=null) : ResponseResultErrors()
+    data class UnknownError(val message: String?=null) : ResponseResultErrors()
 
     companion object {
 

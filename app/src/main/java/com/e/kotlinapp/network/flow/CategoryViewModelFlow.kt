@@ -6,10 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.e.kotlinapp.BaseViewModel
-import com.e.kotlinapp.local.IkoponDatabase
 import com.e.kotlinapp.model.Category
 
-import com.e.kotlinapp.network.api.ApiClient
 import com.e.kotlinapp.network.coroutine.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -37,9 +35,12 @@ class CategoryViewModelFlow @Inject constructor(application: Application, privat
             categoryService.loadCategory().collect {
                 if(it is ResponseResultWithWrapper.Success)
                     _postsLiveData.value = it.responseWrapper.data
+                responseToViewEventMapper(it)
             }
         }
     }
+
+
 
     //live data
     fun getCategories2() =categoryService.loadCategory11()

@@ -46,7 +46,7 @@ class CategoryFragmentFlow : BaseFragment<FragmentCategoriesBinding, CategoryVie
         categoryAdapter = CategoryAdapter(contextFragment, R.layout.item_category, categories, ::onItemClick);
         binding.recycleView.setAdapter(categoryAdapter);
 
-//        viewModel.getCategories()
+//
 
         return binding.root
     }
@@ -61,19 +61,20 @@ class CategoryFragmentFlow : BaseFragment<FragmentCategoriesBinding, CategoryVie
     }
 
     private fun reloadCategories() {
-//        viewModel.postsLiveData.observe(viewLifecycleOwner, Observer {
-//            this.categories.clear()
-//            this.categories.addAll(it);
-//            categoryAdapter.notifyDataSetChanged();
-//        })
-
-        viewModel.getCategories2().observe(viewLifecycleOwner, Observer {
-            if (it is ResponseResultWithWrapper.Success) {
-                this.categories.clear()
-                it.responseWrapper.data?.let { it1 -> this.categories.addAll(it1) };
-                categoryAdapter.notifyDataSetChanged();
-            }
+        viewModel.getCategories()
+        viewModel.postsLiveData.observe(viewLifecycleOwner, Observer {
+            this.categories.clear()
+            this.categories.addAll(it);
+            categoryAdapter.notifyDataSetChanged();
         })
+
+//        viewModel.getCategories2().observe(viewLifecycleOwner, Observer {
+//            if (it is ResponseResultWithWrapper.Success) {
+//                this.categories.clear()
+//                it.responseWrapper.data?.let { it1 -> this.categories.addAll(it1) };
+//                categoryAdapter.notifyDataSetChanged();
+//            }
+//        })
     }
 
 }

@@ -21,21 +21,21 @@ open class BaseRepository{
 
 
             if (throwable.code() == 403 || throwable.code() == 401)
-                apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(responseError= message, throwable= ResponseResultErrors.UnAuthorizedError(throwable)))
+                apiCallResult = ResponseResultWithWrapper.ErrorResponse(ResponseWrapper(responseError= message, throwable= ResponseResultErrors.UnAuthorizedError()))
             else if (throwable.code() == 404 || throwable.code() == 500)
-                apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(responseError= message))
+                apiCallResult = ResponseResultWithWrapper.ErrorResponse(ResponseWrapper(responseError= message))
             else {
-                apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(responseError= message))
+                apiCallResult = ResponseResultWithWrapper.ErrorResponse(ResponseWrapper(responseError= message))
 //                apiCallResult = ResponseResult.ResponseError(message)
             }
 
         } else if (throwable is SocketTimeoutException) {
-            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.TimeOutError(throwable)))
+            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.TimeOutError()))
         } else if (throwable is NoConnectivityException) {//|| throwable instanceof IOException
-            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.NetworkError(throwable)))
+            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.NetworkError()))
         } else {
             Log.e("errorrrrrr ", throwable.message);
-            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.UnknownError(throwable)))
+            apiCallResult = ResponseResultWithWrapper.Error(ResponseWrapper(throwable= ResponseResultErrors.UnknownError()))
         }
 
         return apiCallResult

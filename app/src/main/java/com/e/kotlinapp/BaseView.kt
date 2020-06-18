@@ -13,11 +13,11 @@ interface BaseView {
 
     fun unauthorizedUser(response: ApiBaseResponse?)
 
-    fun onTimeout(throwable: Throwable?)
+    fun onTimeout(throwable: String?)
 
-    fun onNetworkError(throwable: Throwable?)
+    fun onNetworkError(throwable: String?)
 
-    fun onError(throwable: Throwable?, response: ApiBaseResponse?)
+    fun onError(throwable: String?)
 
     fun onResponseMessage(message: ApiBaseResponse?)
 
