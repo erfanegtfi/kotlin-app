@@ -7,7 +7,7 @@ import com.e.kotlinapp.model.Category
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class CategoryRepository @Inject constructor(private val movieApiService: ApiInterfaceCoroutine) : BaseDataSource() {
+class CategoryRepository @Inject constructor(private val apiInterface: ApiInterfaceCoroutine) : BaseDataSource() {
 
 
 //    fun getCategoryList(): LiveData<ResponseResult<ApiListResponse<Category>>> = resultLiveData() {
@@ -29,7 +29,7 @@ class CategoryRepository @Inject constructor(private val movieApiService: ApiInt
         //return type: ResponseResult<ApiListResponse<Category>>
         if (getNewData) {
             val result = getResult {
-                movieApiService.getCategoryList()
+                apiInterface.getCategoryList()
             }
             if (result is ResponseResult.Success)
                 result.response.data
@@ -42,7 +42,7 @@ class CategoryRepository @Inject constructor(private val movieApiService: ApiInt
 
     suspend fun getCategoryList2(getNewData: Boolean): ResponseResult<ApiListResponse<Category>> {
         return getResult {
-            movieApiService.getCategoryList()
+            apiInterface.getCategoryList()
         }
     }
 

@@ -3,21 +3,14 @@ package com.e.kotlinapp.network.flow
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.e.kotlinapp.model.Category
 import com.e.kotlinapp.model.response.base.ApiBaseResponse
-import com.e.kotlinapp.model.response.base.ApiListResponse
 import com.e.kotlinapp.network.BaseRepository
-import com.e.kotlinapp.network.UtilsError
-import com.e.kotlinapp.network.coroutine.ResponseResult
-import com.e.kotlinapp.network.coroutine.ResponseResultErrors
 import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
 import com.e.kotlinapp.network.coroutine.ResponseWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
 import retrofit2.Response
 
 /**
@@ -36,7 +29,7 @@ import retrofit2.Response
  * [REQUEST] represents the type for network.
  */
 @ExperimentalCoroutinesApi
-abstract class LocalBoundRepositoryLiveData<RESULT, REQUEST> :BaseRepository(){
+abstract class LocalBoundRepositoryLiveData<RESULT , REQUEST: ApiBaseResponse> :BaseRepository(){
 
     fun asLiveData() = liveData<ResponseResultWithWrapper<ResponseWrapper<RESULT>>>(Dispatchers.IO) {
 
@@ -55,7 +48,6 @@ abstract class LocalBoundRepositoryLiveData<RESULT, REQUEST> :BaseRepository(){
 
             // Check for response validation
             if (apiResponse.isSuccessful && remotePosts != null) {
-
                 // Save posts into the persistence storage
                 saveRemoteData(remotePosts)
             } else {

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class CategoryRepositoryFlow @Inject constructor( private val postsDao: CategoryDao) : BaseRepository(){
+class CategoryRepositoryFlow @Inject constructor( private val postsDao: CategoryDao, private val apiInterface: ApiInterfaceCoroutine) : BaseRepository(){
 
     // load using Flow, database first
     fun loadCategory(): Flow<ResponseResultWithWrapper<ResponseWrapper<List<Category>>>> {
@@ -26,7 +26,7 @@ class CategoryRepositoryFlow @Inject constructor( private val postsDao: Category
 
             override fun fetchFromLocal(): Flow<List<Category>> = postsDao.getAllPosts()
 
-            override suspend fun fetchFromRemote(): Response<ApiListResponse<Category>> = getApiClient(ApiInterfaceCoroutine::class.java).getCategoryList()
+            override suspend fun fetchFromRemote(): Response<ApiListResponse<Category>> = apiInterface.getCategoryList()
 
         }.asFlow().flowOn(Dispatchers.IO)
     }
