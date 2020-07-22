@@ -4,7 +4,10 @@ import android.app.Application;
 import androidx.databinding.ObservableField
 
 import androidx.lifecycle.AndroidViewModel;
+import com.e.kotlinapp.model.Category
 import com.e.kotlinapp.model.response.base.*
+import com.e.kotlinapp.network.BaseRepository
+import com.e.kotlinapp.network.coroutine.ResponseResult
 import com.e.kotlinapp.network.coroutine.ResponseResultErrors
 import com.e.kotlinapp.network.coroutine.ResponseResultWithWrapper
 import com.e.kotlinapp.network.coroutine.ResponseWrapper
@@ -66,6 +69,18 @@ open class BaseViewModel : AndroidViewModel {
             apiEvents.value = ApiCallState.ResponseError(it.responseWrapper.responseError)
     }
 
+    protected fun responseToViewEventMapper(it: ResponseResult<Any>) {
+        if(it is ResponseResult.Success) {
+            it.response.let { it1 ->  apiEvents.value =
+                if (it1 is ApiBaseResponse)
+                    ApiCallState.Loaded(it1)
+                else
+                    ApiCallState.Loaded()
+            }
+        }
+        if(it is ResponseResult.Loading)
+            apiEvents.value = ApiCallState.Loading
+    }
 
 //    fun onError(throwable: Throwable, showOutMessage: Boolean): ApiCallState {
 //        val apiCallResult :ApiCallState

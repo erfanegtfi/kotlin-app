@@ -34,9 +34,9 @@ class CategoryViewModelCoroutine @Inject constructor(application: Application, p
                 when (response) {
                     is ResponseResult.Success -> {
                         categoryList.onNext(response.response.data)
-                        apiEvents.value = ApiCallState.Loaded(response.response)
                     }
                 }
+                responseToViewEventMapper(response)
             }
 
         }
@@ -51,9 +51,9 @@ class CategoryViewModelCoroutine @Inject constructor(application: Application, p
                 when (it) {
                     is ResponseResult.Success -> {
                         categoryList.onNext(it.response.data)
-                        apiEvents.value = ApiCallState.Loaded(it.response)
                     }
                 }
+                responseToViewEventMapper(it)
             }
         }
     }
