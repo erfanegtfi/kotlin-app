@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class CategoryRepositoryFlow @Inject constructor( private val postsDao: CategoryDao) : BaseRepository(){
+class CategoryRepositoryFlow @Inject constructor( private val postsDao: CategoryDao){
 
     // load using Flow, database first
     fun loadCategory(): Flow<ResponseResultWithWrapper<ResponseWrapper<List<Category>>>> {
@@ -53,28 +53,30 @@ class CategoryRepositoryFlow @Inject constructor( private val postsDao: Category
         }.asFlow().flowOn(Dispatchers.IO)
     }
 
-
-    fun loadCategory3() = flow {
-        // Emit Loading State
-        emit(ResponseResultWithWrapper.Loading)
-        try {
-            // Fetch latest posts from remote
-            val apiResponse = getApiClient(ApiInterfaceCoroutine::class.java).getCategoryList()
-
-            // Parse body
-            val remotePosts = apiResponse.body()
-
-            // Check for response validation
-            if (apiResponse.isSuccessful && remotePosts != null) {
-                emit(ResponseResultWithWrapper.Success(ResponseWrapper(data = remotePosts)))
-            } else {
-                // Something went wrong! Emit Error state.
-                emit(error(apiResponse.errorBody()))
-            }
-        } catch (e: Throwable) {
-            // Exception occurred! Emit error
-            emit(error(e))
-            e.printStackTrace()
-        }
-    }.flowOn(Dispatchers.IO)
+    /**
+     *  this is just for test adding flow out of NetworkBoundRepository
+     */
+//    fun loadCategory3() = flow {
+//        // Emit Loading State
+//        emit(ResponseResultWithWrapper.Loading)
+//        try {
+//            // Fetch latest posts from remote
+//            val apiResponse = getApiClient(ApiInterfaceCoroutine::class.java).getCategoryList()
+//
+//            // Parse body
+//            val remotePosts = apiResponse.body()
+//
+//            // Check for response validation
+//            if (apiResponse.isSuccessful && remotePosts != null) {
+//                emit(ResponseResultWithWrapper.Success(ResponseWrapper(data = remotePosts)))
+//            } else {
+//                // Something went wrong! Emit Error state.
+//                emit(error(apiResponse.errorBody()))
+//            }
+//        } catch (e: Throwable) {
+//            // Exception occurred! Emit error
+//            emit(error(e))
+//            e.printStackTrace()
+//        }
+//    }.flowOn(Dispatchers.IO)
 }
